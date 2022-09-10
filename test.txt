@@ -1,0 +1,55 @@
+import { type } from "os";
+import { question } from "readline-sync";
+
+type Operator = "+" | "-" | "/" | "*";
+
+function main() {
+  const firstStr = question("Enter frist number: ");
+  const operator = question("Enter Operator: ");
+  const secondStr = question("Enter second number: ");
+
+  const isValidInput: boolean =
+    isNumber(firstStr) && isNumber(secondStr) && isOperator(operator);
+
+  if (isValidInput) {
+    const firstNum: number = parseInt(firstStr);
+    const secondNum: number = parseInt(secondStr);
+    const result = calculate(firstNum, operator as Operator, secondNum);
+    console.log("Result : " + result);
+  } else {
+    console.log("Enter valid input!\n");
+    main();
+  }
+}
+
+function calculate(firstNum: number, operator: Operator, secondNum: number) {
+  switch (operator) {
+    case "+":
+      return firstNum + secondNum;
+    case "-":
+      return firstNum - secondNum;
+    case "/":
+      return firstNum / secondNum;
+    case "*":
+      return firstNum * secondNum;
+  }
+}
+
+function isOperator(opt: string): boolean {
+  switch (opt) {
+    case "+":
+    case "-":
+    case "*":
+    case "/":
+    case "%":
+      return true;
+    default:
+      return false;
+  }
+}
+function isNumber(str: string): boolean {
+  const maybeNum = parseInt(str);
+  const isNum = !isNaN(maybeNum);
+  return isNum;
+}
+main();
